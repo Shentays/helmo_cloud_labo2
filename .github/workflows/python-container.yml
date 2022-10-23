@@ -38,16 +38,16 @@ jobs:
         run: python3 helloworld.py
         
       - name: Build and Tag image (Docker)
-        run: docker build -f ./Dockerfile -t ${{ secrets.ACR_LOGIN_SERVER }}/spring-petclinic:${{ github.run_number }} .
+        run: docker build -f ./Dockerfile -t ${{ secrets.ACR_LOGIN_SERVER }}/hello-world-python:${{ github.run_number }} .
         
       - name: Scan image
         uses: Azure/container-scan@v0
         with:
-          image-name: ${{ secrets.ACR_LOGIN_SERVER }}/spring-petclinic:${{ github.run_number }}
+          image-name: ${{ secrets.ACR_LOGIN_SERVER }}/hello-world-python:${{ github.run_number }}
           severity-threshold: CRITICAL
           run-quality-checks: true
           
       - name: Push image
-        run: docker push ${{ secrets.ACR_LOGIN_SERVER }}/spring-petclinic:${{ github.run_number }}
+        run: docker push ${{ secrets.ACR_LOGIN_SERVER }}/hello-world-python:${{ github.run_number }}
         
         
