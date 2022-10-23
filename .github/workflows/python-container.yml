@@ -27,4 +27,14 @@ jobs:
       - name: Hello World! (test)
         run: python3 helloworld.py
       - name: Build and Tag image (Docker)
-        run: docker build -f ./Dockerfile .
+        run: docker build -t python3-app -f ./Dockerfile .
+      - name: Scan image
+        uses: Azure/container-scan@v0
+        with:
+          image-name: python3-app
+          severity-threshold: CRITICAL
+          run-quality-checks: true
+      - name: Push image
+        run: docker push helloworld-app
+        
+        
